@@ -2,18 +2,18 @@
 
 ## Project Summary
 
-This project simulates a basic music recommender system similar to platforms like Spotify or TikTok. The system takes a user's music preferences (such as genre, mood, and energy) and compares them with song attributes from a dataset. It then assigns a score to each song based on how closely it matches the user's taste and recommends the top results.
+This project simulates a small content-based music recommender system. The goal is to model how recommendation systems turn user preferences into predictions by comparing song features such as genre, mood, and energy with a user's taste profile. The recommender assigns each song a weighted score, ranks the songs from highest to lowest, and returns the top matches.
 
-The goal is to understand how real-world recommendation systems transform data into predictions using features, scoring rules, and ranking algorithms.
+This project helped me understand how recommendation systems use structured data, scoring logic, and ranking to generate personalized suggestions. It also showed how even a simple system can develop limitations such as repetition, narrow recommendations, and bias toward certain types of songs.
 
 ---
 
 ## How The System Works
 
-This recommender system is a simple content-based model that suggests songs based on how similar they are to a user’s preferences.
+This recommender uses a content-based approach. Instead of learning from many users, it compares each song directly to a single user’s preferences.
 
 ### Song Features
-Each song in the dataset has attributes such as:
+Each song includes:
 - genre
 - mood
 - energy
@@ -23,24 +23,25 @@ Each song in the dataset has attributes such as:
 - acousticness
 
 ### User Profile
-The user profile includes:
-- favorite genre
-- favorite mood
+Each user profile stores:
+- preferred genre
+- preferred mood
 - preferred energy level
-- whether they like acoustic songs
+- optional acoustic preference
 
 ### Scoring Rule
-Each song is compared to the user profile and given a score:
-- Songs with matching genre and mood get higher scores
-- Songs with energy close to the user's preference score higher
-- Additional features like tempo and acousticness help refine the score
+The recommender computes a score for each song using weighted matching:
+- genre match adds strong points
+- mood match adds strong points
+- energy gives partial credit based on closeness to the user’s target
+- acousticness can add a small bonus depending on preference
 
 ### Ranking Rule
-After scoring all songs:
-- Songs are sorted from highest to lowest score
-- The top K songs are recommended
+After every song is scored:
+- the songs are sorted from highest score to lowest score
+- the top 5 songs are returned as recommendations
 
-This simulates how real-world systems rank content based on relevance.
+This simulates the basic idea behind larger real-world recommendation systems, although in a much simpler and more transparent form.
 
 ---
 
@@ -84,6 +85,12 @@ You can add more tests in `tests/test_recommender.py`.
 - Tested different weights for genre and mood to see which influenced recommendations more
 - Observed how changing energy preference affected results
 - Compared recommendations for different user profiles (e.g., high-energy vs chill users)
+
+
+## Screenshots
+![image1](images/image1.png)
+![image2](images/image2.png)
+![image3](images/image3.png)
 
 ---
 
