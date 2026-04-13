@@ -19,18 +19,23 @@ The model assumes that a user’s taste can be represented using a few fixed fea
 This is a content-based recommender. It looks at features of each song and compares them to features in a user profile.
 
 The main song features used are:
-- genre
-- mood
-- energy
-- acousticness
+- genre  
+- mood  
+- energy  
+- acousticness  
 
 The user profile stores:
-- favorite genre
-- favorite mood
-- target energy level
-- whether the user prefers acoustic music
+- favorite genre  
+- favorite mood  
+- target energy level  
+- whether the user prefers acoustic music  
 
-Each song receives a weighted score. Matching genre and mood receive strong points, while energy contributes partial credit depending on how close the song is to the user’s preferred energy level. Acousticness adds a smaller bonus depending on whether the user likes acoustic songs. After all songs are scored, they are ranked from highest to lowest and the top results are recommended.
+Each song receives a weighted score. Matching genre and mood receive strong points, while energy contributes partial credit depending on how close the song is to the user’s preferred energy level. Acousticness adds a smaller bonus depending on whether the user likes acoustic songs.
+
+After all songs are scored, they are ranked from highest to lowest and the top results are recommended.
+
+This logic was implemented in Python using functions to load data, compute scores, and generate ranked recommendations through a command-line interface.
+
 
 ---
 
@@ -42,13 +47,17 @@ The dataset includes genres such as pop, lofi, rock, ambient, jazz, synthwave, a
 
 This is a limited dataset and does not represent the full range of musical taste. It also does not include listening history, lyrics, or cultural context.
 
+
 ---
 
 ## 5. Strengths  
 
 This recommender works well for users who have clear and simple preferences, such as wanting energetic pop songs or chill lofi songs. It is also easy to understand because the scoring logic is transparent and explainable.
 
+The CLI output clearly shows why each song was recommended by listing matching features and score contributions.
+
 In testing, the output usually matched the expected vibe of the profile. For example, rock profiles produced more intense rock songs, while lofi profiles returned calmer, lower-energy songs.
+
 
 ---
 
@@ -56,36 +65,51 @@ In testing, the output usually matched the expected vibe of the profile. For exa
 
 One weakness I discovered is that the recommender can over-prioritize genre and energy when those features have strong weights. This causes some songs to appear in more than one profile, even when the users are meant to be different.
 
-The system also struggles with conflicting preferences. For example, the “Sad But High Energy” profile mostly returned energetic songs, which suggests that the high-energy preference had more influence than mood. Another limitation is that if the preferred genre is missing from the dataset, the system falls back mostly to energy-based matching, which may not feel musically accurate.
+The system also struggles with conflicting preferences. For example, the “Moody High Energy” profile mostly returned energetic songs, which suggests that the high-energy preference had more influence than mood.
+
+Another limitation is that if the preferred genre is missing from the dataset, the system falls back mostly to energy-based matching, which may not feel musically accurate.
 
 Because the dataset is small, the recommender can easily create a filter bubble by repeatedly suggesting songs with very similar characteristics.
+
 
 ---
 
 ## 7. Evaluation  
 
-I tested the model using five user profiles:
-- High-Energy Pop
-- Chill Lofi
-- Deep Intense Rock
-- Sad But High Energy
-- Unknown Genre Preference
+I tested the model using multiple user profiles through the command-line interface, including:
 
-I checked whether the top recommendations matched the expected vibe of each profile. In most cases, the results made sense. High-Energy Pop ranked upbeat pop songs highly, Chill Lofi returned low-energy lofi tracks, and Deep Intense Rock ranked intense rock songs near the top.
+- High-Energy Pop  
+- Chill Lofi  
+- Deep Intense Rock  
+- Moody High Energy  
+- Unknown Genre Preference  
 
-What surprised me most was how much the system depended on energy when a profile had conflicting preferences or when the requested genre was not present in the dataset. This showed that the scoring rule was reasonable, but also somewhat narrow.
+The recommender generated ranked lists of songs along with scores and explanations for each recommendation.
+
+In most cases, the results matched expectations:
+- High-Energy Pop returned upbeat pop songs  
+- Chill Lofi returned low-energy lofi tracks  
+- Deep Intense Rock returned intense rock songs  
+
+The edge-case profiles revealed important behaviors:
+- Conflicting preferences (mood vs energy) caused energy to dominate  
+- Missing genres caused the system to rely more on numeric features like energy  
+
+These results demonstrate that the model works well for simple preferences but becomes less accurate in complex or ambiguous cases.
+
 
 ---
 
 ## 8. Future Work  
 
 If I continued this project, I would improve it by:
-- adding more songs and a more diverse dataset
-- supporting more detailed user preferences
-- using tempo, valence, and danceability more directly in scoring
-- improving diversity so the top results are not too repetitive
-- adding better explanation features for why each song was recommended
-- exploring collaborative filtering instead of relying only on content-based matching
+- adding more songs and a more diverse dataset  
+- supporting more detailed user preferences  
+- using tempo, valence, and danceability more directly in scoring  
+- improving diversity so the top results are not too repetitive  
+- adding better explanation features for why each song was recommended  
+- exploring collaborative filtering instead of relying only on content-based matching  
+
 
 
 ---

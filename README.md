@@ -9,7 +9,6 @@ This project helped me understand how recommendation systems use structured data
 ---
 
 ## How The System Works
-
 This recommender uses a content-based approach. Instead of learning from many users, it compares each song directly to a single user’s preferences.
 
 ### Song Features
@@ -40,8 +39,6 @@ The recommender computes a score for each song using weighted matching:
 After every song is scored:
 - the songs are sorted from highest score to lowest score
 - the top 5 songs are returned as recommendations
-
-This simulates the basic idea behind larger real-world recommendation systems, although in a much simpler and more transparent form.
 
 ---
 
@@ -82,25 +79,40 @@ You can add more tests in `tests/test_recommender.py`.
 
 ## Experiments You Tried
 
-- Tested different weights for genre and mood to see which influenced recommendations more
-- Observed how changing energy preference affected results
-- Compared recommendations for different user profiles (e.g., high-energy vs chill users)
+To evaluate the recommender, I tested it with multiple user profiles representing different music tastes. These included:
+
+High-Energy Pop
+Chill Lofi
+Deep Intense Rock
+Moody High Energy
+Unknown Genre Preference
+
+The first three profiles were used to test clear differences in genre, mood, and energy. The last two profiles were used as edge cases to see how the recommender handled conflicting preferences or missing genres.
+
+The results mostly matched expectations:
+
+The pop profile returned more upbeat songs
+The lofi profile returned calmer low-energy songs
+The rock profile returned intense rock tracks
+
+The edge-case profiles revealed that the recommender relies heavily on energy when mood conflicts exist or when the preferred genre is not available.
 
 
 ## Screenshots
 ![image1](images/image1.png)
 ![image2](images/image2.png)
 ![image3](images/image3.png)
+![image](images/image.png)
+
 
 ---
 
 ## Limitations and Risks
 
-- The dataset is small and may not represent all music tastes
-- The system only considers a few features and ignores lyrics, artist popularity, and user history
-- It may over-recommend one genre if the user strongly prefers it
-- It does not include collaborative filtering, so it cannot learn from other users
-
+The dataset is small and may not represent all music tastes
+The system only considers a few features and ignores lyrics, artist popularity, and user history
+It may over-recommend one genre if the user strongly prefers it
+It does not include collaborative filtering, so it cannot learn from other users
 ---
 
 ## Reflection
@@ -216,9 +228,8 @@ Examples:
 
 ## 9. Personal Reflection
 
-A few sentences about what you learned:
+This project helped me understand how recommendation systems turn user preferences into predictions using structured data. I learned how features like genre, mood, and energy are compared with song attributes to generate a score, which is then used to rank songs.
 
-- What surprised you about how your system behaved
-- How did building this change how you think about real music recommenders
-- Where do you think human judgment still matters, even if the model seems "smart"
+While testing different profiles, I noticed that the system often relied heavily on energy and genre, especially when preferences were conflicting or missing. This showed me how even simple recommender systems can develop bias or become repetitive.
 
+Overall, building this system helped me realize that platforms like Spotify and TikTok are not random. Their recommendations are based on patterns, weights, and data limitations, and they can strongly influence what users discover.
