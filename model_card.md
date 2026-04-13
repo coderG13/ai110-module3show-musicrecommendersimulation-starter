@@ -2,101 +2,61 @@
 
 ## 1. Model Name  
 
-Give your model a short, descriptive name.  
-Example: **VibeFinder 1.0**  
+**VibeMatch 1.0**
 
 ---
 
 ## 2. Intended Use  
 
-Describe what your recommender is designed to do and who it is for. 
-
-Prompts:  
-
-- What kind of recommendations does it generate  
-- What assumptions does it make about the user  
-- Is this for real users or classroom exploration  
+This model recommends songs based on a user’s preferences such as genre, mood, and energy. It is designed for classroom learning purposes to simulate how recommendation systems work, not for real-world deployment.
 
 ---
 
 ## 3. How the Model Works  
 
-Explain your scoring approach in simple language.  
+The model compares each song’s features with the user’s preferences. It looks at attributes like genre, mood, energy, and tempo. Songs that match the user’s favorite genre and mood receive higher scores. For numerical features like energy, songs closer to the user’s preferred value receive better scores.
 
-Prompts:  
-
-- What features of each song are used (genre, energy, mood, etc.)  
-- What user preferences are considered  
-- How does the model turn those into a score  
-- What changes did you make from the starter logic  
-
-Avoid code here. Pretend you are explaining the idea to a friend who does not program.
+All features are combined into a weighted score, and songs are ranked from highest to lowest to generate recommendations.
 
 ---
 
 ## 4. Data  
 
-Describe the dataset the model uses.  
+The dataset contains a small collection of songs with attributes such as genre, mood, energy, tempo, valence, danceability, and acousticness.
 
-Prompts:  
-
-- How many songs are in the catalog  
-- What genres or moods are represented  
-- Did you add or remove data  
-- Are there parts of musical taste missing in the dataset  
+The dataset is limited and does not cover all music styles or user preferences, which may affect recommendation quality. 
 
 ---
 
 ## 5. Strengths  
 
-Where does your system seem to work well  
-
-Prompts:  
-
-- User types for which it gives reasonable results  
-- Any patterns you think your scoring captures correctly  
-- Cases where the recommendations matched your intuition  
+- Works well for users with clear preferences (e.g., pop + happy songs)
+- Easy to understand and explain
+- Produces consistent and predictable recommendations
 
 ---
 
 ## 6. Limitations and Bias 
 
-Where the system struggles or behaves unfairly. 
-
-Prompts:  
-
-- Features it does not consider  
-- Genres or moods that are underrepresented  
-- Cases where the system overfits to one preference  
-- Ways the scoring might unintentionally favor some users  
+- Does not consider user listening history
+- May over-recommend one genre or mood
+- Dataset may not represent diverse music tastes
+- Cannot capture complex or changing preferences 
 
 ---
 
 ## 7. Evaluation  
 
-How you checked whether the recommender behaved as expected. 
-
-Prompts:  
-
-- Which user profiles you tested  
-- What you looked for in the recommendations  
-- What surprised you  
-- Any simple tests or comparisons you ran  
-
-No need for numeric metrics unless you created some.
+The model was tested using different user profiles with varying preferences. The recommendations were evaluated based on whether the top results matched the expected vibe. In most cases, songs with similar genre and mood appeared at the top.
 
 ---
 
 ## 8. Future Work  
 
-Ideas for how you would improve the model next.  
-
-Prompts:  
-
-- Additional features or preferences  
-- Better ways to explain recommendations  
-- Improving diversity among the top results  
-- Handling more complex user tastes  
+- Add more features such as artist popularity or lyrics
+- Include collaborative filtering using multiple users
+- Improve diversity in recommendations
+- Add explanation transparency for each recommendation 
 
 ---
 

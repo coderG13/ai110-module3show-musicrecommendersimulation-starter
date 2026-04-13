@@ -2,32 +2,45 @@
 
 ## Project Summary
 
-In this project you will build and explain a small music recommender system.
+This project simulates a basic music recommender system similar to platforms like Spotify or TikTok. The system takes a user's music preferences (such as genre, mood, and energy) and compares them with song attributes from a dataset. It then assigns a score to each song based on how closely it matches the user's taste and recommends the top results.
 
-Your goal is to:
-
-- Represent songs and a user "taste profile" as data
-- Design a scoring rule that turns that data into recommendations
-- Evaluate what your system gets right and wrong
-- Reflect on how this mirrors real world AI recommenders
-
-Replace this paragraph with your own summary of what your version does.
+The goal is to understand how real-world recommendation systems transform data into predictions using features, scoring rules, and ranking algorithms.
 
 ---
 
 ## How The System Works
 
-Explain your design in plain language.
+This recommender system is a simple content-based model that suggests songs based on how similar they are to a user’s preferences.
 
-Some prompts to answer:
+### Song Features
+Each song in the dataset has attributes such as:
+- genre
+- mood
+- energy
+- tempo_bpm
+- valence
+- danceability
+- acousticness
 
-- What features does each `Song` use in your system
-  - For example: genre, mood, energy, tempo
-- What information does your `UserProfile` store
-- How does your `Recommender` compute a score for each song
-- How do you choose which songs to recommend
+### User Profile
+The user profile includes:
+- favorite genre
+- favorite mood
+- preferred energy level
+- whether they like acoustic songs
 
-You can include a simple diagram or bullet list if helpful.
+### Scoring Rule
+Each song is compared to the user profile and given a score:
+- Songs with matching genre and mood get higher scores
+- Songs with energy close to the user's preference score higher
+- Additional features like tempo and acousticness help refine the score
+
+### Ranking Rule
+After scoring all songs:
+- Songs are sorted from highest to lowest score
+- The top K songs are recommended
+
+This simulates how real-world systems rank content based on relevance.
 
 ---
 
@@ -68,25 +81,18 @@ You can add more tests in `tests/test_recommender.py`.
 
 ## Experiments You Tried
 
-Use this section to document the experiments you ran. For example:
-
-- What happened when you changed the weight on genre from 2.0 to 0.5
-- What happened when you added tempo or valence to the score
-- How did your system behave for different types of users
+- Tested different weights for genre and mood to see which influenced recommendations more
+- Observed how changing energy preference affected results
+- Compared recommendations for different user profiles (e.g., high-energy vs chill users)
 
 ---
 
 ## Limitations and Risks
 
-Summarize some limitations of your recommender.
-
-Examples:
-
-- It only works on a tiny catalog
-- It does not understand lyrics or language
-- It might over favor one genre or mood
-
-You will go deeper on this in your model card.
+- The dataset is small and may not represent all music tastes
+- The system only considers a few features and ignores lyrics, artist popularity, and user history
+- It may over-recommend one genre if the user strongly prefers it
+- It does not include collaborative filtering, so it cannot learn from other users
 
 ---
 
