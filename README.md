@@ -2,43 +2,46 @@
 
 ## Project Summary
 
-This project simulates a small content-based music recommender system. The goal is to model how recommendation systems turn user preferences into predictions by comparing song features such as genre, mood, and energy with a user's taste profile. The recommender assigns each song a weighted score, ranks the songs from highest to lowest, and returns the top matches.
+This project simulates a content-based music recommender system. The goal is to understand how recommendation systems turn user preferences into predictions by comparing song features such as genre, mood, and energy.
 
-This project helped me understand how recommendation systems use structured data, scoring logic, and ranking to generate personalized suggestions. It also showed how even a simple system can develop limitations such as repetition, narrow recommendations, and bias toward certain types of songs.
+The system assigns each song a weighted score, ranks all songs, and returns the top recommendations. This project helped me understand how simple algorithms can still create meaningful and personalized suggestions.
+
 
 ---
 
 ## How The System Works
-This recommender uses a content-based approach. Instead of learning from many users, it compares each song directly to a single user’s preferences.
+This recommender uses a content-based approach. It compares each song directly with a user’s preferences.
 
 ### Song Features
 Each song includes:
-- genre
-- mood
-- energy
-- tempo_bpm
-- valence
-- danceability
-- acousticness
+- genre  
+- mood  
+- energy  
+- tempo_bpm  
+- valence  
+- danceability  
+- acousticness  
 
 ### User Profile
-Each user profile stores:
-- preferred genre
-- preferred mood
-- preferred energy level
-- optional acoustic preference
+Each user profile includes:
+- preferred genre  
+- preferred mood  
+- target energy level  
+- acoustic preference
 
-### Scoring Rule
-The recommender computes a score for each song using weighted matching:
-- genre match adds strong points
-- mood match adds strong points
-- energy gives partial credit based on closeness to the user’s target
-- acousticness can add a small bonus depending on preference
 
-### Ranking Rule
-After every song is scored:
-- the songs are sorted from highest score to lowest score
-- the top 5 songs are returned as recommendations
+## Scoring Logic
+
+Each song is scored based on how well it matches the user:
+
+- Genre match → high points  
+- Mood match → high points  
+- Energy → partial points based on closeness  
+- Acoustic preference → small bonus  
+
+After scoring:
+- Songs are sorted from highest to lowest  
+- Top 5 songs are returned
 
 ---
 
@@ -79,52 +82,63 @@ You can add more tests in `tests/test_recommender.py`.
 
 ## Experiments You Tried
 
-To evaluate the recommender, I tested it with multiple user profiles representing different music tastes. These included:
+I tested the recommender using multiple user profiles:
 
 High-Energy Pop
 Chill Lofi
 Deep Intense Rock
 Moody High Energy
 Unknown Genre Preference
+Observations
+High-Energy Pop → returned energetic pop songs
+Chill Lofi → returned calm, low-energy songs
+Deep Intense Rock → returned intense rock songs
+Edge Cases
+Moody High Energy → energy dominated over mood
+Unknown Genre → system relied mostly on energy
+Experiment
 
-The first three profiles were used to test clear differences in genre, mood, and energy. The last two profiles were used as edge cases to see how the recommender handled conflicting preferences or missing genres.
+I modified the scoring logic (e.g., increasing energy weight or removing mood).
 
-The results mostly matched expectations:
+Result:
 
-The pop profile returned more upbeat songs
-The lofi profile returned calmer low-energy songs
-The rock profile returned intense rock tracks
-
-The edge-case profiles revealed that the recommender relies heavily on energy when mood conflicts exist or when the preferred genre is not available.
-
+Recommendations changed significantly
+The system is sensitive to feature weights
+Over-weighting one feature reduces balance
 
 ## Screenshots
 ![image1](images/image1.png)
 ![image2](images/image2.png)
 ![image3](images/image3.png)
 ![image](images/image.png)
+![image11](images/image11.png)
+![image12](images/image12.png)
+![image13](images/image13.png)
+![image14](images/image14.png)
 
 
 ---
 
 ## Limitations and Risks
 
-The dataset is small and may not represent all music tastes
-The system only considers a few features and ignores lyrics, artist popularity, and user history
-It may over-recommend one genre if the user strongly prefers it
-It does not include collaborative filtering, so it cannot learn from other users
+Small dataset (~10 songs)
+Limited features (no lyrics, popularity, or user history)
+Can repeat similar songs across profiles
+Struggles with conflicting preferences
+Can create “filter bubbles”
+
+
 ---
 
 ## Reflection
 
-Read and complete `model_card.md`:
+This project helped me understand how recommendation systems turn user preferences into predictions using structured data and simple scoring rules.
 
-[**Model Card**](model_card.md)
+I learned that even basic algorithms can feel realistic, but they are highly sensitive to the features and weights used. Small changes in scoring logic can completely change recommendations.
 
-Write 1 to 2 paragraphs here about what you learned:
+Using AI tools helped me generate ideas and debug code faster, but I had to verify the logic to make sure it matched my intended design.
 
-- about how recommenders turn data into predictions
-- about where bias or unfairness could show up in systems like this
+What surprised me most is how simple systems can still produce convincing recommendations. If I extended this project, I would explore using more data and combining content-based filtering with collaborative filtering.
 
 
 ---

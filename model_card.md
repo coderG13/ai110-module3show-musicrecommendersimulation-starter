@@ -1,82 +1,67 @@
 # 🎧 Model Card: Music Recommender Simulation
 
-## 1. Model Name  
+---
 
+## Model Name  
 **VibeMatch 1.0**
 
 ---
 
-## 2. Intended Use  
+## Goal / Task  
 
-This recommender is designed to generate song suggestions from a small song catalog based on a user’s preferences, such as genre, mood, energy, and acoustic style. It is intended for classroom exploration and learning, not for real-world deployment.
-
-The model assumes that a user’s taste can be represented using a few fixed features and that songs with similar attributes will be more relevant to that user.
+The goal of this system is to recommend songs that match a user’s preferences.  
+It predicts which songs a user might like based on features such as genre, mood, and energy.
 
 ---
 
-## 3. How the Model Works  
+## Data Used  
 
-This is a content-based recommender. It looks at features of each song and compares them to features in a user profile.
+The system uses a small dataset of songs stored in `songs.csv`.  
+It contains about 10 songs.
 
-The main song features used are:
+Each song includes features like:
 - genre  
 - mood  
 - energy  
+- tempo  
+- valence  
+- danceability  
 - acousticness  
 
-The user profile stores:
-- favorite genre  
-- favorite mood  
-- target energy level  
-- whether the user prefers acoustic music  
-
-Each song receives a weighted score. Matching genre and mood receive strong points, while energy contributes partial credit depending on how close the song is to the user’s preferred energy level. Acousticness adds a smaller bonus depending on whether the user likes acoustic songs.
-
-After all songs are scored, they are ranked from highest to lowest and the top results are recommended.
-
-This logic was implemented in Python using functions to load data, compute scores, and generate ranked recommendations through a command-line interface.
-
+The dataset is limited in size and does not include user history, lyrics, or popularity data.
 
 ---
 
-## 4. Data  
+## Algorithm Summary  
 
-The dataset is a small song catalog stored in `songs.csv`. It includes song-level attributes such as title, artist, genre, mood, energy, tempo, valence, danceability, and acousticness.
+This is a content-based recommender.
 
-The dataset includes genres such as pop, lofi, rock, ambient, jazz, synthwave, and indie pop, and moods such as happy, chill, intense, relaxed, moody, and focused.
+The system compares each song to the user’s preferences and gives it a score.
 
-This is a limited dataset and does not represent the full range of musical taste. It also does not include listening history, lyrics, or cultural context.
+- Songs get points if the genre matches  
+- Songs get points if the mood matches  
+- Songs get partial points if the energy is close to the user’s preference  
+- Songs may get a small bonus based on acoustic preference  
 
-
----
-
-## 5. Strengths  
-
-This recommender works well for users who have clear and simple preferences, such as wanting energetic pop songs or chill lofi songs. It is also easy to understand because the scoring logic is transparent and explainable.
-
-The CLI output clearly shows why each song was recommended by listing matching features and score contributions.
-
-In testing, the output usually matched the expected vibe of the profile. For example, rock profiles produced more intense rock songs, while lofi profiles returned calmer, lower-energy songs.
-
+After scoring all songs, the system sorts them and returns the top results.
 
 ---
 
-## 6. Limitations and Bias
+## Observed Behavior / Biases  
 
-One weakness I discovered is that the recommender can over-prioritize genre and energy when those features have strong weights. This causes some songs to appear in more than one profile, even when the users are meant to be different.
+The system tends to favor genre and energy heavily.
 
-The system also struggles with conflicting preferences. For example, the “Moody High Energy” profile mostly returned energetic songs, which suggests that the high-energy preference had more influence than mood.
+One issue is that songs with high energy can appear in multiple profiles, even when the mood is different. This means energy sometimes dominates mood.
 
-Another limitation is that if the preferred genre is missing from the dataset, the system falls back mostly to energy-based matching, which may not feel musically accurate.
+Another limitation is that if a user selects a genre that does not exist in the dataset, the system ignores genre and relies mostly on energy.
 
-Because the dataset is small, the recommender can easily create a filter bubble by repeatedly suggesting songs with very similar characteristics.
-
+Because the dataset is small, the system can repeat similar types of songs, creating a “filter bubble.”
 
 ---
 
-## 7. Evaluation  
+## Evaluation Process  
 
-I tested the model using multiple user profiles through the command-line interface, including:
+I tested the system using multiple user profiles, including:
 
 - High-Energy Pop  
 - Chill Lofi  
@@ -84,38 +69,45 @@ I tested the model using multiple user profiles through the command-line interfa
 - Moody High Energy  
 - Unknown Genre Preference  
 
-The recommender generated ranked lists of songs along with scores and explanations for each recommendation.
+I ran the recommender in the terminal and observed the top 5 results for each profile.
 
-In most cases, the results matched expectations:
-- High-Energy Pop returned upbeat pop songs  
-- Chill Lofi returned low-energy lofi tracks  
-- Deep Intense Rock returned intense rock songs  
+I also tested an experiment by changing the scoring logic (for example, increasing the importance of energy or removing mood) to see how the results changed.
 
-The edge-case profiles revealed important behaviors:
-- Conflicting preferences (mood vs energy) caused energy to dominate  
-- Missing genres caused the system to rely more on numeric features like energy  
-
-These results demonstrate that the model works well for simple preferences but becomes less accurate in complex or ambiguous cases.
-
+These tests helped me understand how different features affect the final recommendations.
 
 ---
 
-## 8. Future Work  
+## Intended Use and Non-Intended Use  
 
-If I continued this project, I would improve it by:
-- adding more songs and a more diverse dataset  
-- supporting more detailed user preferences  
-- using tempo, valence, and danceability more directly in scoring  
-- improving diversity so the top results are not too repetitive  
-- adding better explanation features for why each song was recommended  
-- exploring collaborative filtering instead of relying only on content-based matching  
+### Intended Use  
+- Learning how recommendation systems work  
+- Demonstrating scoring and ranking logic  
+- Simple music suggestion simulation  
 
-
+### Non-Intended Use  
+- Real-world music recommendation systems  
+- Personalized streaming platforms like Spotify  
+- Decisions based on large-scale user behavior  
 
 ---
 
-## 9. Personal Reflection  
+## Ideas for Improvement  
 
-This project helped me understand that recommendation systems are not magic. They are built from data, feature choices, scoring rules, and ranking logic. Even a small system can feel convincing when the features align well with user expectations.
+If I continued this project, I would:
 
-At the same time, building this made me more aware of bias and oversimplification. A recommender can seem accurate while still ignoring important parts of human taste. That made me think more critically about how apps like Spotify or TikTok shape what people hear and discover.
+- Add more songs to increase diversity  
+- Use more features like tempo, valence, and danceability  
+- Improve scoring so results are less repetitive  
+- Add collaborative filtering (using other users’ data)  
+
+---
+
+## Personal Reflection  
+
+The biggest thing I learned is that recommendation systems are built from simple rules, but they can still feel very real. Even a basic scoring system can produce results that seem personalized.
+
+Using AI tools helped me generate ideas and structure my code faster, especially when implementing functions and debugging errors. However, I had to double-check the logic to make sure it actually matched my design.
+
+What surprised me the most is how small changes in weights or features can completely change the recommendations. This showed me how sensitive these systems are.
+
+If I extended this project, I would try combining content-based filtering with collaborative filtering to make the recommendations more realistic and diverse.
